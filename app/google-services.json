@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314844248401",
+    "project_id": "fatou-s-restaurant",
+    "storage_bucket": "fatou-s-restaurant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314844248401:android:9bfcaf96877dd1793c7b70",
+        "android_client_info": {
+          "package_name": "com.example.fatousrestaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314844248401-aldl0gd6ibsd5bpckn9m21dukr7so3mm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYiCnmMlLCg8FlHT6jyUDgmllgIdjU2-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314844248401-aldl0gd6ibsd5bpckn9m21dukr7so3mm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
