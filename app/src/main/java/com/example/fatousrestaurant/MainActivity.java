@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,6 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.fatousrestaurant.Adapter.AdapterFood;
+import com.example.fatousrestaurant.activities.FoodAddActivity;
+import com.example.fatousrestaurant.activities.ProductActivity;
 import com.example.fatousrestaurant.model.FoodModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,11 +46,30 @@ public class MainActivity extends AppCompatActivity {
         get_data();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        
+        if (item.getItemId()== R.id.action_cart){
+            Toast.makeText(this, "You clicked on CART", Toast.LENGTH_SHORT).show();
+        }
+        else if (item.getItemId()== R.id.action_add_product) {
+            Toast.makeText(this, "You clicked on ADD New Product", Toast.LENGTH_SHORT).show();
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     List<FoodModel> foods=new ArrayList<>();
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     private void get_data() {
-        db.collection("FOOD").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("FOODS").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 foods=queryDocumentSnapshots.toObjects(FoodModel.class);
@@ -80,7 +104,10 @@ public class MainActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new AdapterFood.OnItemClickListener() {
             @Override
             public void onItemClick(View view, FoodModel obj, int pos) {
-                Toast.makeText(MainActivity.this,"You Clicked On ==> "+obj.title,Toast.LENGTH_SHORT).show();
+                Intent i=new Intent(MainActivity.this, ProductActivity.class);
+                i.putExtra("id", obj.food_id);
+                MainActivity.this.startActivity(i);
+
             }
         });
 
@@ -95,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setVisibility(View.GONE);
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Fatou's Restaurant");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
