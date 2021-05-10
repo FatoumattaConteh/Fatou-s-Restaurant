@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.fatousrestaurant.Adapter.AdapterFood;
+import com.example.fatousrestaurant.activities.CheckOutActivity;
 import com.example.fatousrestaurant.activities.FoodAddActivity;
 import com.example.fatousrestaurant.activities.ProductActivity;
 import com.example.fatousrestaurant.model.FoodModel;
@@ -56,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         
         if (item.getItemId()== R.id.action_cart){
-            Toast.makeText(this, "You clicked on CART", Toast.LENGTH_SHORT).show();
+           Intent i=new Intent(this, CheckOutActivity.class);
+           this.startActivity(i);
         }
         else if (item.getItemId()== R.id.action_add_product) {
             Toast.makeText(this, "You clicked on ADD New Product", Toast.LENGTH_SHORT).show();

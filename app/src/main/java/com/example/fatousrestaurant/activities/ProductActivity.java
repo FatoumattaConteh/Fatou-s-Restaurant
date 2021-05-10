@@ -14,12 +14,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.fatousrestaurant.R;
+import com.example.fatousrestaurant.model.CardModel;
 import com.example.fatousrestaurant.model.FoodModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.orm.SugarDb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,9 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         context=this;
+
+        //SugarDb db=new SugarDb(this);
+        //db.onCreate(db.getDB());
 
         Intent i=getIntent();
         id=i.getStringExtra("id");
@@ -99,10 +104,28 @@ public class ProductActivity extends AppCompatActivity {
         add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Adding to Cart", Toast.LENGTH_SHORT).show();
+                add_product_to_cart();
             }
         });
 
+
+    }
+
+    private void add_product_to_cart() {
+        CardModel cardModel=new CardModel();
+        cardModel.product_id=food.food_id;
+        cardModel.product_name=food.title;
+        cardModel.product_price=food.price+"";
+        cardModel.product_photo=food.photo;
+        cardModel.quantity=1;
+
+        try {
+            //cardModel.save();
+            CardModel.save(cardModel);
+            Toast.makeText(context, "Product added to Cart", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Toast.makeText(context, "failed to save because "+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
     }
 }
