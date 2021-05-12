@@ -26,6 +26,7 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private OnItemClickListener onItemClickListener;
 
     Context context;
+    String layout_style="0";
 
     public void setOnItemClickListener(final OnItemClickListener itemClickListener){this.onItemClickListener=itemClickListener;}
 
@@ -33,7 +34,18 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card,parent,false);
+        View v;
+        if (layout_style.equals("0")){
+
+           v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card,parent,false);
+
+        }
+        else if (layout_style.equals("1")){
+            v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card_1,parent,false);
+        } else{
+           v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card,parent,false);
+        }
+
         vh=new OriginalViewHolder(v);
         return vh;
 
@@ -77,9 +89,10 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void onItemClick(View view, FoodModel obj, int pos);
     }
 
-    public AdapterFood(List<FoodModel> items,Context context){
+    public AdapterFood(List<FoodModel> items,Context context,String layout_style){
         this.items=items;
         this.context=context;
+        this.layout_style=layout_style;
 
     }
 

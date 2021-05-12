@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initToolbar();
-
         get_data();
     }
 
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setVisibility(View.VISIBLE);
 
         //set data and list adapter
-        mAdapter=new AdapterFood(foods,this);
+        mAdapter=new AdapterFood(foods,this,"0");
         recyclerView.setAdapter(mAdapter);
 
 
