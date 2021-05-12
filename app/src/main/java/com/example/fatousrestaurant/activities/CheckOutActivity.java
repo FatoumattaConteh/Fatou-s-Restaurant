@@ -51,7 +51,7 @@ public class CheckOutActivity extends AppCompatActivity {
             return;
         }
 
-       // initToolbar();
+        //initToolbar();
         
         get_card_data();
 

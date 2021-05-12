@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.fatousrestaurant.Adapter.AdapterFood;
+import com.example.fatousrestaurant.activities.AdminOrdersActivity;
 import com.example.fatousrestaurant.activities.CheckOutActivity;
 import com.example.fatousrestaurant.activities.FoodAddActivity;
 import com.example.fatousrestaurant.activities.ProductActivity;
@@ -59,10 +60,18 @@ public class MainActivity extends AppCompatActivity {
            Intent i=new Intent(this, CheckOutActivity.class);
            this.startActivity(i);
         }
+
+        else if (item.getItemId()== R.id.action_orders){
+           Intent i=new Intent(this, AdminOrdersActivity.class);
+           this.startActivity(i);
+        }
+
         else if (item.getItemId()== R.id.action_add_product) {
             Toast.makeText(this, "You clicked on ADD New Product", Toast.LENGTH_SHORT).show();
 
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }

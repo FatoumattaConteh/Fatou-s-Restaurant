@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FatousRestaurant">
-        <activity android:name=".activities.CheckOutActivity"></activity>
+        <activity android:name=".activities.AdminOrderActivity"></activity>
+        <activity android:name=".activities.AdminOrdersActivity" />
+        <activity android:name=".activities.CheckOutActivity" />
         <activity android:name=".activities.ProductActivity" />
         <activity android:name=".activities.SignInActivity" />
 

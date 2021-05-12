@@ -14,6 +14,24 @@
         android:title="Add new product"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/action_products"
+        android:orderInCategory="100"
+        android:title="Products"
+        app:showAsAction="never"/>
+ <item
+        android:id="@+id/action_orders"
+        android:orderInCategory="100"
+        android:title="Product"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_customers"
+        android:orderInCategory="100"
+        android:title="Customers"
+        app:showAsAction="never"/>
+
+
 
 
 </menu>

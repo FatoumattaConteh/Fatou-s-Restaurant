@@ -1,6 +1,7 @@
 package com.example.fatousrestaurant.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.fatousrestaurant.R;
+import com.example.fatousrestaurant.model.CardModel;
 import com.example.fatousrestaurant.model.FoodModel;
+import com.example.fatousrestaurant.model.OrderModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterOrders extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<FoodModel> items=new ArrayList<>();
+    private List<OrderModel> items=new ArrayList<>();
 
     private OnItemClickListener onItemClickListener;
 
@@ -35,13 +38,13 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View v;
         if (layout_style.equals("0")){
 
-           v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card,parent,false);
+           v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order,parent,false);
 
         }
         else if (layout_style.equals("1")){
-            v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card_1,parent,false);
+            v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order,parent,false);
         } else{
-           v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_food_card,parent,false);
+           v= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_order,parent,false);
         }
 
         vh=new OriginalViewHolder(v);
@@ -49,20 +52,37 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     }
 
+    int total=0;
+    //replaces the contents of the view
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         if (holder instanceof OriginalViewHolder){
             OriginalViewHolder view=(OriginalViewHolder) holder;
 
-            final FoodModel f=items.get(position);
-            view.title.setText(f.title);
-            view.price.setText(f.price);
+            final OrderModel o=items.get(position);
+            view.customer_name.setText(o.customer.first_name +" "+o.customer.last_name);
+            view.customer_address.setText(o.customer.address);
 
-            Glide.with(context)
-                    .load(f.photo)
-                    .centerCrop()
-                    .into(view.image);
+
+
+            total=0;
+            for (CardModel c:o.cart){
+
+                try {
+
+                    total+= Integer.valueOf(c.product_price);
+
+                }catch (Exception e){
+
+                }
+
+
+            }
+            view.total_price.setText("$" +total);
+
+
 
             view.lyt_parent.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -84,10 +104,10 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     public  interface OnItemClickListener{
-        void onItemClick(View view, FoodModel obj, int pos);
+        void onItemClick(View view, OrderModel obj, int pos);
     }
 
-    public AdapterFood(List<FoodModel> items, Context context, String layout_style){
+    public AdapterOrders(List<OrderModel> items, Context context, String layout_style){
         this.items=items;
         this.context=context;
         this.layout_style=layout_style;
@@ -96,16 +116,16 @@ public class AdapterFood extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder{
-        public ImageView image;
-        public TextView title;
-        public  TextView price;
+        public TextView customer_name;
+        public  TextView customer_address;
+        public  TextView total_price;
         public View lyt_parent;
 
         public  OriginalViewHolder(View v){
             super(v);
-            image=(ImageView)v.findViewById(R.id.image);
-            title=(TextView)v.findViewById(R.id.title);
-            price=(TextView)v.findViewById(R.id.price);
+            customer_name=(TextView)v.findViewById(R.id.customer_name);
+            customer_address=(TextView)v.findViewById(R.id.customer_address);
+            total_price=(TextView)v.findViewById(R.id.total_price);
             lyt_parent=(View)v.findViewById(R.id.lyt_parent);
 
         }
